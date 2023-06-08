@@ -1,0 +1,20 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Open transformation",
+            "file": "d:\\DEV\\Git\\3D_Factory\\poc\\perspective-transform\\examples\\css-matrix3d\\index.html"            
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Open test input",
+            "file": "d:\\DEV\\Git\\3D_Factory\\poc\\perspective-transform\\examples\\test_input\\index.html"            
+        }
+    ]
+}

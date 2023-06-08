@@ -9,8 +9,16 @@
     <title>Perspective Transform with CSS</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <script type="module"></script>
     <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
         #container {
+            margin: 0 auto;
             position:relative;
             width: 100%;
             height: 100%;
@@ -36,6 +44,12 @@
             position: absolute;
             top: 0px; left: 0px;
             border: 1px solid blue;
+            user-select: none;
+        }
+        .saveButton {
+            position: absolute;
+            top: 0px; right: 0px;
+            border: 1px solid blue;
         }
     </style>
   </head>
@@ -45,16 +59,18 @@
     <![endif]-->
 
     <div id="container">
+        <input type="file" id="imageToWarp" name="imageToWarp" accept="image/png, image/jpeg" onchange="handleFiles(files)">
+        <div><button onclick="capture()" class="saveButton">Save</button></div>
         <div id="box">
-            <img src="./flower.png">
+            <img src="./face.jpg">
         </div>
-        <div id="marker0" class="corner">TL</div>
+        <div id="marker0" class="corner">&nbsp&nbsp&nbsp&nbsp</div>
         <div id="marker2" class="corner">TR</div>
         <div id="marker4" class="corner">BL</div>
         <div id="marker6" class="corner">BR</div>
-    </div>
-
-    <script type="text/javascript" src="../..//dist/perspective-transform.min.js"></script>
+    </div>    
+    <script type="text/javascript" src="../../dist/perspective-transform.min.js"></script>
+    <script type="text/javascript" src="../../node_modules/html2canvas/dist/html2canvas.js"></script>
     <script type="text/javascript" src="./main.js"></script>
 </body>
 </html>

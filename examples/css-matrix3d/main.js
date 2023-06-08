@@ -1,3 +1,7 @@
+//import html2canvas from 'html2canvas';
+//import html2canvas from './node_modules/html2canvas/dist/html2canvas.js';
+//const { html2canvas } = require('./node_modules/html2canvas/dist/html2canvas.js');
+
 function transform2d(elt, x1, y1, x2, y2, x3, y3, x4, y4) {
   var w = elt.offsetWidth, h = elt.offsetHeight;
   var transform = PerspT([0, 0, w, 0, 0, h, w, h], [x1, y1, x2, y2, x3, y3, x4, y4]);
@@ -12,6 +16,46 @@ function transform2d(elt, x1, y1, x2, y2, x3, y3, x4, y4) {
   elt.style["-o-transform"] = t;
   elt.style.transform = t;
 }
+
+function capture(){
+  console.log("save");
+  html2canvas(document.getElementById("box")).then(function(canvas) {
+    document.getElementById("container").appendChild(canvas);
+  });
+}
+
+function handleFile(files) {
+  var imageType = /^image\//;
+  let preview =document.getElementById("box")
+  console.log("files= ",files)
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
+    if (!imageType.test(file.type)) {
+      alert("veuillez sélectionner une image");
+    }else{
+      if(i == 0){
+        preview.innerHTML = '';
+      }
+      var img = document.createElement("img");
+      img.classList.add("obj");
+      img.file = file;
+      preview.appendChild(img); 
+      var reader = new FileReader();
+      reader.onload = ( function(aImg) { 
+        return function(e) { 
+          aImg.src = e.target.result; 
+        }; 
+      })(img);
+      reader.readAsDataURL(file);
+    }
+  }
+}
+
+//Corners:
+//  X0;Y0----X1;Y1
+//    |        |
+//    |        |
+//  X2;Y2----X3;Y3
 
 corners = [100, 100, 300, 100, 100, 300, 300, 300];
 function update() {
