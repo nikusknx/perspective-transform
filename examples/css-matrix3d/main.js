@@ -24,7 +24,7 @@ function capture(){
   });
 }
 
-function handleFile(files) {
+function handleFiles(files) {
   var imageType = /^image\//;
   let preview =document.getElementById("box")
   console.log("files= ",files)
