@@ -16,6 +16,7 @@ function setMatrixForCurrentRectangles(){
 		coordinates[i] = Number( $('#rect1' + index).val() );
 		rect2[i] = Number( $('#rect0' + index).val() );
 	}
+	rect2
 	perspectiveTran = PerspT(rect2, coordinates);
 	for(var i = 0; i < perspectiveTran.coeffs.length; i++){
 		$('#transMat' + i).html(perspectiveTran.coeffs[i]);

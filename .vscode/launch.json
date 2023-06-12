@@ -8,13 +8,19 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open transformation",
-            "file": "d:\\DEV\\Git\\3D_Factory\\poc\\perspective-transform\\examples\\css-matrix3d\\index.html"            
+            "file": "d:\\DEV\\Git\\3D_Factory\\poc\\perspective-transform\\examples\\css-matrix3d\\index.html"
         },
         {
             "type": "chrome",
             "request": "launch",
             "name": "Open test input",
-            "file": "d:\\DEV\\Git\\3D_Factory\\poc\\perspective-transform\\examples\\test_input\\index.html"            
+            "file": "d:\\DEV\\Git\\3D_Factory\\poc\\perspective-transform\\examples\\test_input\\index.html"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Open convert",
+            "file": "d:\\DEV\\Git\\3D_Factory\\poc\\perspective-transform\\examples\\test-ui\\index.html"
         }
     ]
 }
