@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open transformation",
-            "file": "d:\\DEV\\Git\\3D_Factory\\poc\\perspective-transform\\examples\\css-matrix3d\\index.html"
+            "file": "d:\\DEV\\Git\\3D_Factory\\poc\\perspective-transform\\examples\\straighten\\index.html"
         },
         {
             "type": "chrome",

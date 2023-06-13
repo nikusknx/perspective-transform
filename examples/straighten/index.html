@@ -1,0 +1,42 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Perspective Transform with CSS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="trStyle.css">
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="container">
+        <label for="imageToWarp" class="custom-file-upload">
+          Choisir un fichier
+        </label>
+        <input type="file" id="imageToWarp" name="imageToWarp" accept="image/png, image/jpeg" onchange="selectFile(this)">
+        <div><button onclick="capture()" class="saveButton">Enregistrer</button></div>
+        <div id="source">
+          <canvas hidden id="thumbnailCanvas" width="400" height="400" ></canvas>
+          <canvas id="sourceCanvas" width="400" height="400" ></canvas>
+        </div>
+        <div id="box"></div>
+        <div id="marker0" class="corner">&nbsp&nbsp&nbsp&nbsp</div>
+        <div id="marker2" class="corner">&nbsp&nbsp&nbsp&nbsp</div>
+        <div id="marker4" class="corner">&nbsp&nbsp&nbsp&nbsp</div>
+        <div id="marker6" class="corner">&nbsp&nbsp&nbsp&nbsp</div>
+        <div><button onclick="transform()" class="transformButton">Transform</button></div>
+    </div>
+    <div id="result">
+        <canvas id="resultCanvas" width="400" height="400" ></canvas>
+    </div> 
+    <script type="text/javascript" src="../../dist/perspective-transform.min.js"></script>
+    <script type="text/javascript" src="./main.js"></script>
+</body>
+</html>
