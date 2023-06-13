@@ -1,6 +1,3 @@
-//import html2canvas from 'html2canvas';
-//import html2canvas from './node_modules/html2canvas/dist/html2canvas.js';
-//const { html2canvas } = require('./node_modules/html2canvas/dist/html2canvas.js');
 
 //Corners:
 //  X0;Y0----X1;Y1
@@ -12,13 +9,13 @@ const yOrigin = 200;
 const imaWidth = 512;
 const imaHeight = 512;
 const handleSize = 10;
-let perspectiveTran;
+let perspectiveTransform;
 
 let corners = [xOrigin, yOrigin, 
   xOrigin+imaWidth, yOrigin, 
   xOrigin, yOrigin+imaHeight, 
   xOrigin+imaWidth, yOrigin+imaHeight];
-const originCorners = corners;
+const originCorners = [...corners];
 
 //transform box 
 function transform2d(elt, x1, y1, x2, y2, x3, y3, x4, y4) {
@@ -109,21 +106,39 @@ function transform(){
   for (let i=0; i < srcImageData.data.length; i+=4){
     // resContext.fillStyle = "rgba("+255+","+0+","+0+","+(255/255)+")";
     // resContext.fillRect( 0, 0, imaWidth, imaHeight );
-    let x = i/imaWidth
-    applyTransform(x,y)
-    imageData.data[i + 0] = srcImageData.data[i + 0]
-    imageData.data[i + 1] = srcImageData.data[i + 1]
-    imageData.data[i + 2] = srcImageData.data[i + 2]
-    imageData.data[i + 3] = srcImageData.data[i + 3]
+    const pixelIndex = i/4;
+    //we compute the x and y position of the current pixel
+    const x = pixelIndex%imaWidth;// rowIndex - rowIndex*imaWidth
+    const y = Math.trunc(pixelIndex/imaWidth);
+    //console.log("x=",x," y=",y);
+    const res = perspectiveTransform.transform(x,y);
+    const xRes = Math.trunc(res[0]);
+    const yRes = Math.trunc(res[1]);
+    //console.log("xRes=",xRes," yRes=",yRes);
+    const resIndex = Math.trunc((xRes + yRes * imaWidth) * 4);
+    //console.log("resIndex=",resIndex);
+
+    imageData.data[i + 0] = srcImageData.data[resIndex + 0];
+    imageData.data[i + 1] = srcImageData.data[resIndex + 1];
+    imageData.data[i + 2] = srcImageData.data[resIndex + 2];
+    imageData.data[i + 3] = srcImageData.data[resIndex + 3];
   }
   // console.log("resultImageData= ",imageData);
   resContext.putImageData(imageData, 0, 0);
+  console.log("finish");
 }
 
 //compute matrix from distorted corner points
 function setMatrixForCurrentRectangles(){
 	// var index;//, rect1Id, rect2Id;
-	var source = [];
+	let source = [];
+  let dest = [];
+  for (i=0; i<originCorners.length; i+=2){
+    source[i]=originCorners[i]-xOrigin;
+    source[i+1]=originCorners[i+1]-yOrigin;
+    dest[i]=corners[i]-xOrigin;
+    dest[i+1]=corners[i+1]-yOrigin;
+  }
 	// for(var i = 0; i < 8; i++){
 	// 	if(i % 2 == 0){
 	// 		index = 'x' + i/2;
@@ -134,7 +149,7 @@ function setMatrixForCurrentRectangles(){
 	// 	coordinates[i] = Number( $('#rect1' + index).val() );
 	// 	rect2[i] = Number( $('#rect0' + index).val() );
 	// }
-	perspectiveTran = PerspT(originCorners, corners);
+	perspectiveTransform = PerspT(source, dest);
 	// for(var i = 0; i < perspectiveTran.coeffs.length; i++){
 	// 	$('#transMat' + i).html(perspectiveTran.coeffs[i]);
 	// 	$('#transMatInv' + i).html(perspectiveTran.coeffsInv[i]);
@@ -144,8 +159,9 @@ function setMatrixForCurrentRectangles(){
 function applyTransform(x,y){
 	// var x = $('#pointX').val();
 	// var y = $('#pointY').val();
-	const res = perspectiveTran.transform(x,y);
+	const res = perspectiveTransform.transform(x,y);
   console.log("res=",res);
+  return res;
 	//$('#transResult').html('(' + roundToThousandths(res[0]) + ', ' + roundToThousandths(res[1]) + ')');
 }
 
